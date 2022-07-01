@@ -7,8 +7,9 @@ import { FeeAmount, getMaxLiquidityPerTick, TICK_SPACINGS } from './shared/utili
 const MaxUint128 = BigNumber.from(2).pow(128).sub(1)
 
 const { constants } = ethers
-
-describe('Tick', () => {
+//todo check
+describe('Tick', function (){
+  this.timeout(100000)
   let tickTest: TickTest
 
   beforeEach('deploy TickTest', async () => {

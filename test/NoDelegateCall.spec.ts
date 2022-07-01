@@ -4,7 +4,8 @@ import { NoDelegateCallTest } from '../typechain/NoDelegateCallTest'
 import { expect } from './shared/expect'
 import snapshotGasCost from './shared/snapshotGasCost'
 
-describe('NoDelegateCall', () => {
+describe('NoDelegateCall', function (){
+  this.timeout(100000)
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof waffle.createFixtureLoader>
@@ -29,7 +30,7 @@ describe('NoDelegateCall', () => {
   let proxy: NoDelegateCallTest
 
   beforeEach('deploy test contracts', async () => {
-    ;({ noDelegateCallTest: base, proxy } = await loadFixture(noDelegateCallFixture))
+    ;({ noDelegateCallTest: base, proxy } = await (noDelegateCallFixture()))
   })
 
   it('runtime overhead', async () => {

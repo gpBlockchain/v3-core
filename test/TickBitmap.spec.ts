@@ -3,7 +3,9 @@ import { TickBitmapTest } from '../typechain/TickBitmapTest'
 import { expect } from './shared/expect'
 import snapshotGasCost from './shared/snapshotGasCost'
 
-describe('TickBitmap', () => {
+//todo check
+describe('TickBitmap', function (){
+  this.timeout(100000)
   let tickBitmap: TickBitmapTest
 
   beforeEach('deploy TickBitmapTest', async () => {

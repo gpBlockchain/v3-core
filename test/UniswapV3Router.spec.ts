@@ -27,8 +27,9 @@ const tickSpacing = TICK_SPACINGS[feeAmount]
 const createFixtureLoader = waffle.createFixtureLoader
 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
-
-describe('UniswapV3Pool', () => {
+//todo check
+describe('UniswapV3Pool', function (){
+  this.timeout(100000)
   let wallet: Wallet, other: Wallet
 
   let token0: TestERC20

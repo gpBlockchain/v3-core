@@ -11,7 +11,8 @@ const Q128 = BigNumber.from(2).pow(128)
 
 Decimal.config({ toExpNeg: -500, toExpPos: 500 })
 
-describe('FullMath', () => {
+describe('FullMath', function ()  {
+  this.timeout(100000);
   let fullMath: FullMathTest
   before('deploy FullMathTest', async () => {
     const factory = await ethers.getContractFactory('FullMathTest')
@@ -59,7 +60,7 @@ describe('FullMath', () => {
       const result = BigNumber.from(1).mul(Q128).div(3)
       expect(await fullMath.mulDiv(Q128, BigNumber.from(1000).mul(Q128), BigNumber.from(3000).mul(Q128))).to.eq(result)
     })
-  })
+  }).timeout(10000000)
 
   describe('#mulDivRoundingUp', () => {
     it('reverts if denominator is 0', async () => {

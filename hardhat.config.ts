@@ -41,6 +41,16 @@ export default {
     polygon: {
       url: `https://polygon-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
     },
+    localEth:{
+      url:`http://localhost:8545`,
+      accounts: {
+        mnemonic: "test test test test test test test test test test test junk",
+        path: "m/44'/60'/0'/0",
+        initialIndex: 0,
+        count: 20,
+        passphrase: "",
+      },
+    }
   },
   etherscan: {
     // Your API key for Etherscan
@@ -62,4 +72,26 @@ export default {
       },
     },
   },
+  defaultNetwork:"localEth",
+  mocha: {
+    /** Reporter name or constructor. */
+    reporter: "mochawesome",
+    timeout: 5000000,
+    // /** Reporter settings object. */
+    // reporterOptions: {
+    //     output: "test-results-1.json"
+    // },
+    // reporterOptions: {
+    //     reportFilename: "[status]_[datetime]-[name]-report",
+    //     timestamp: "longDate"
+    // }
+    // mochawesome:{
+    //     reporterOptions: {
+    //         reportFilename: "[status]_[datetime]-[name]-report",
+    //         timestamp: "longDate"
+    //     }
+    // }
+
+  }
+
 }

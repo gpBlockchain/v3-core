@@ -28,7 +28,7 @@ import {
 const {
   constants: { MaxUint256 },
 } = ethers
-
+//todo check
 const createFixtureLoader = waffle.createFixtureLoader
 
 Decimal.config({ toExpNeg: -500, toExpPos: 500 })
@@ -48,7 +48,8 @@ function applySqrtRatioBipsHundredthsDelta(sqrtRatio: BigNumber, bipsHundredths:
   )
 }
 
-describe('UniswapV3Pool arbitrage tests', () => {
+describe('UniswapV3Pool arbitrage tests', function (){
+  this.timeout(100000)
   let wallet: Wallet, arbitrageur: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -133,7 +134,7 @@ describe('UniswapV3Pool arbitrage tests', () => {
               swapExact1For0,
               tester,
               tickMath,
-            } = await loadFixture(arbTestFixture))
+            } = await (arbTestFixture([wallet, arbitrageur])))
           })
 
           async function simulateSwap(

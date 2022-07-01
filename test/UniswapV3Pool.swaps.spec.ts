@@ -447,7 +447,8 @@ const TEST_POOLS: PoolTestCase[] = [
   },
 ]
 
-describe('UniswapV3Pool swap tests', () => {
+describe('UniswapV3Pool swap tests', function (){
+  this.timeout(100000)
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>

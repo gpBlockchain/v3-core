@@ -5,14 +5,15 @@ import snapshotGasCost from './shared/snapshotGasCost'
 
 const { BigNumber } = ethers
 
-describe('LiquidityMath', () => {
+describe('LiquidityMath', function (){
+  this.timeout(100000)
   let liquidityMath: LiquidityMathTest
   const fixture = async () => {
     const factory = await ethers.getContractFactory('LiquidityMathTest')
     return (await factory.deploy()) as LiquidityMathTest
   }
   beforeEach('deploy LiquidityMathTest', async () => {
-    liquidityMath = await waffle.loadFixture(fixture)
+    liquidityMath = await (fixture())
   })
 
   describe('#addDelta', () => {

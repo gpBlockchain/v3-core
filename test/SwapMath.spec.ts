@@ -7,7 +7,8 @@ import snapshotGasCost from './shared/snapshotGasCost'
 import { encodePriceSqrt, expandTo18Decimals } from './shared/utilities'
 import { SqrtPriceMathTest } from '../typechain/SqrtPriceMathTest'
 
-describe('SwapMath', () => {
+describe('SwapMath', function (){
+  this.timeout(100000)
   let swapMath: SwapMathTest
   let sqrtPriceMath: SqrtPriceMathTest
   before(async () => {

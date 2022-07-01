@@ -6,8 +6,9 @@ import { expect } from './shared/expect'
 import { TEST_POOL_START_TIME } from './shared/fixtures'
 import snapshotGasCost from './shared/snapshotGasCost'
 import { MaxUint128 } from './shared/utilities'
-
-describe('Oracle', () => {
+//todo check
+describe('Oracle', function (){
+  this.timeout(100000)
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof waffle.createFixtureLoader>
@@ -34,7 +35,7 @@ describe('Oracle', () => {
   describe('#initialize', () => {
     let oracle: OracleTest
     beforeEach('deploy test oracle', async () => {
-      oracle = await loadFixture(oracleFixture)
+      oracle = await oracleFixture()
     })
     it('index is 0', async () => {
       await oracle.initialize({ liquidity: 1, tick: 1, time: 1 })
@@ -65,7 +66,7 @@ describe('Oracle', () => {
   describe('#grow', () => {
     let oracle: OracleTest
     beforeEach('deploy initialized test oracle', async () => {
-      oracle = await loadFixture(initializedOracleFixture)
+      oracle = await (initializedOracleFixture())
     })
 
     it('increases the cardinality next for the first call', async () => {
@@ -139,7 +140,7 @@ describe('Oracle', () => {
     let oracle: OracleTest
 
     beforeEach('deploy initialized test oracle', async () => {
-      oracle = await loadFixture(initializedOracleFixture)
+      oracle = await (initializedOracleFixture())
     })
 
     it('single element array gets overwritten', async () => {
@@ -265,7 +266,7 @@ describe('Oracle', () => {
     describe('before initialization', async () => {
       let oracle: OracleTest
       beforeEach('deploy test oracle', async () => {
-        oracle = await loadFixture(oracleFixture)
+        oracle = await (oracleFixture())
       })
 
       const observeSingle = async (secondsAgo: number) => {
@@ -529,7 +530,7 @@ describe('Oracle', () => {
         }
         let oracle: OracleTest
         beforeEach('set up observations', async () => {
-          oracle = await loadFixture(oracleFixture5Observations)
+          oracle = await (oracleFixture5Observations())
         })
 
         const observeSingle = async (secondsAgo: number) => {

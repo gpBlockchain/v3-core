@@ -10,7 +10,8 @@ const {
   constants: { MaxUint256 },
 } = ethers
 
-describe('SqrtPriceMath', () => {
+describe('SqrtPriceMath', function (){
+  this.timeout(100000)
   let sqrtPriceMath: SqrtPriceMathTest
   before(async () => {
     const sqrtPriceMathTestFactory = await ethers.getContractFactory('SqrtPriceMathTest')

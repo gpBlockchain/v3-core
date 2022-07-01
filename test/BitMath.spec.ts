@@ -5,14 +5,15 @@ import snapshotGasCost from './shared/snapshotGasCost'
 
 const { BigNumber } = ethers
 
-describe('BitMath', () => {
+describe('BitMath', function ()  {
+  this.timeout(100000);
   let bitMath: BitMathTest
   const fixture = async () => {
     const factory = await ethers.getContractFactory('BitMathTest')
     return (await factory.deploy()) as BitMathTest
   }
-  beforeEach('deploy BitMathTest', async () => {
-    bitMath = await waffle.loadFixture(fixture)
+  before('deploy BitMathTest', async () => {
+    bitMath = await fixture()
   })
 
   describe('#mostSignificantBit', () => {

@@ -15,7 +15,9 @@ const TEST_ADDRESSES: [string, string] = [
 
 const createFixtureLoader = waffle.createFixtureLoader
 
-describe('UniswapV3Factory', () => {
+//todo check
+describe('UniswapV3Factory', function (){
+  this.timeout(100000)
   let wallet: Wallet, other: Wallet
 
   let factory: UniswapV3Factory
@@ -37,7 +39,7 @@ describe('UniswapV3Factory', () => {
   })
 
   beforeEach('deploy factory', async () => {
-    factory = await loadFixture(fixture)
+    factory = await (fixture())
   })
 
   it('owner is deployer', async () => {

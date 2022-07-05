@@ -108,6 +108,7 @@ describe('UniswapV3Pool', function (){
 
       await pool0Functions.mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))
       await (await pool1Functions.mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))).wait()
+      console.log('init success ')
     })
 
     it('multi-swap', async () => {

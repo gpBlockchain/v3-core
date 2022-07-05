@@ -186,7 +186,7 @@ export function createPoolFunctions({
 
   const mint: MintFunction = async (recipient, tickLower, tickUpper, liquidity) => {
     await token0.approve(swapTarget.address, constants.MaxUint256)
-    await token1.approve(swapTarget.address, constants.MaxUint256)
+    await (await token1.approve(swapTarget.address, constants.MaxUint256)).wait()
     return swapTarget.mint(pool.address, recipient, tickLower, tickUpper, liquidity)
   }
 

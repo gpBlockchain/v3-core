@@ -27,9 +27,8 @@ const tickSpacing = TICK_SPACINGS[feeAmount]
 const createFixtureLoader = waffle.createFixtureLoader
 
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
-//todo check
 describe('UniswapV3Pool', function (){
-  this.timeout(100000)
+  this.timeout(10000000)
   let wallet: Wallet, other: Wallet
 
   let token0: TestERC20
@@ -58,8 +57,10 @@ describe('UniswapV3Pool', function (){
   })
 
   beforeEach('deploy first fixture', async () => {
-    ;({ token0, token1, token2, factory, createPool, swapTargetCallee, swapTargetRouter } = await loadFixture(
-      poolFixture
+    ;[wallet, other] = await (ethers as any).getSigners()
+
+    ;({ token0, token1, token2, factory, createPool, swapTargetCallee, swapTargetRouter } = await (
+      poolFixture([wallet, other],waffle.provider)
     ))
 
     const createPoolWrapped = async (
@@ -103,10 +104,10 @@ describe('UniswapV3Pool', function (){
       outputToken = token2
 
       await pool0.initialize(encodePriceSqrt(1, 1))
-      await pool1.initialize(encodePriceSqrt(1, 1))
+      await (await pool1.initialize(encodePriceSqrt(1, 1))).wait()
 
       await pool0Functions.mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))
-      await pool1Functions.mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))
+      await (await pool1Functions.mint(wallet.address, minTick, maxTick, expandTo18Decimals(1))).wait()
     })
 
     it('multi-swap', async () => {
@@ -122,7 +123,9 @@ describe('UniswapV3Pool', function (){
 
       const method = ForExact0 ? swapForExact0Multi : swapForExact1Multi
 
-      await expect(method(100, wallet.address))
+      let tx = method(100, wallet.address)
+      await (await tx).wait()
+      await expect(tx)
         .to.emit(outputToken, 'Transfer')
         .withArgs(pool1.address, wallet.address, 100)
         .to.emit(token1, 'Transfer')

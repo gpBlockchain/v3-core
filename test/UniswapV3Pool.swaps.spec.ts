@@ -448,7 +448,7 @@ const TEST_POOLS: PoolTestCase[] = [
 ]
 
 describe('UniswapV3Pool swap tests', function (){
-  this.timeout(100000)
+  this.timeout(10000000)
   let wallet: Wallet, other: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -468,10 +468,10 @@ describe('UniswapV3Pool swap tests', function (){
         )
         const pool = await createPool(poolCase.feeAmount, poolCase.tickSpacing)
         const poolFunctions = createPoolFunctions({ swapTarget, token0, token1, pool })
-        await pool.initialize(poolCase.startingPrice)
+        await (await pool.initialize(poolCase.startingPrice)).wait()
         // mint all positions
         for (const position of poolCase.positions) {
-          await poolFunctions.mint(wallet.address, position.tickLower, position.tickUpper, position.liquidity)
+          await (await poolFunctions.mint(wallet.address, position.tickLower, position.tickUpper, position.liquidity)).wait()
         }
 
         const [poolBalance0, poolBalance1] = await Promise.all([
@@ -493,15 +493,15 @@ describe('UniswapV3Pool swap tests', function (){
       let poolFunctions: PoolFunctions
 
       beforeEach('load fixture', async () => {
-        ;({ token0, token1, pool, poolFunctions, poolBalance0, poolBalance1, swapTarget } = await loadFixture(
-          poolCaseFixture
+        ;({ token0, token1, pool, poolFunctions, poolBalance0, poolBalance1, swapTarget } = await (
+          poolCaseFixture()
         ))
       })
 
       afterEach('check can burn positions', async () => {
         for (const { liquidity, tickUpper, tickLower } of poolCase.positions) {
-          await pool.burn(tickLower, tickUpper, liquidity)
-          await pool.collect(POSITION_PROCEEDS_OUTPUT_ADDRESS, tickLower, tickUpper, MaxUint128, MaxUint128)
+          await (await pool.burn(tickLower, tickUpper, liquidity)).wait()
+          await (await pool.collect(POSITION_PROCEEDS_OUTPUT_ADDRESS, tickLower, tickUpper, MaxUint128, MaxUint128)).wait()
         }
       })
 
@@ -510,7 +510,8 @@ describe('UniswapV3Pool swap tests', function (){
           const slot0 = await pool.slot0()
           const tx = executeSwap(pool, testCase, poolFunctions)
           try {
-            await tx
+            await (await tx).wait()
+
           } catch (error) {
             expect({
               swapError: error.message,

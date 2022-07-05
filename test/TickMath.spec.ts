@@ -12,7 +12,7 @@ const MAX_TICK = 887272
 Decimal.config({ toExpNeg: -500, toExpPos: 500 })
 
 describe('TickMath', function (){
-  this.timeout(100000)
+  this.timeout(1000000)
   let tickMath: TickMathTest
 
   before('deploy TickMathTest', async () => {

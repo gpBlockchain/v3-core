@@ -17,7 +17,7 @@ const createFixtureLoader = waffle.createFixtureLoader
 
 //todo check
 describe('UniswapV3Factory', function (){
-  this.timeout(100000)
+  this.timeout(10000000)
   let wallet: Wallet, other: Wallet
 
   let factory: UniswapV3Factory
@@ -47,13 +47,14 @@ describe('UniswapV3Factory', function (){
   })
 
   it('factory bytecode size', async () => {
-    expect(((await waffle.provider.getCode(factory.address)).length - 2) / 2).to.matchSnapshot()
+    await new Promise(r => setTimeout(r, 5000));
+    expect(((await ethers.provider.getCode(factory.address,'pending')).length - 2) / 2).to.matchSnapshot()
   })
 
   it('pool bytecode size', async () => {
-    await factory.createPool(TEST_ADDRESSES[0], TEST_ADDRESSES[1], FeeAmount.MEDIUM)
+    await (await factory.createPool(TEST_ADDRESSES[0], TEST_ADDRESSES[1], FeeAmount.MEDIUM)).wait()
     const poolAddress = getCreate2Address(factory.address, TEST_ADDRESSES, FeeAmount.MEDIUM, poolBytecode)
-    expect(((await waffle.provider.getCode(poolAddress)).length - 2) / 2).to.matchSnapshot()
+    expect(((await ethers.provider.getCode(poolAddress)).length - 2) / 2).to.matchSnapshot()
   })
 
   it('initial enabled fee amounts', async () => {
@@ -142,7 +143,7 @@ describe('UniswapV3Factory', function (){
     })
 
     it('cannot be called by original owner', async () => {
-      await factory.setOwner(other.address)
+      await (await factory.setOwner(other.address)).wait()
       await expect(factory.setOwner(wallet.address)).to.be.reverted
     })
   })
@@ -161,18 +162,18 @@ describe('UniswapV3Factory', function (){
       await expect(factory.enableFeeAmount(500, 16834)).to.be.reverted
     })
     it('fails if already initialized', async () => {
-      await factory.enableFeeAmount(100, 5)
+      await (await factory.enableFeeAmount(100, 5)).wait()
       await expect(factory.enableFeeAmount(100, 10)).to.be.reverted
     })
     it('sets the fee amount in the mapping', async () => {
-      await factory.enableFeeAmount(100, 5)
+      await (await factory.enableFeeAmount(100, 5)).wait()
       expect(await factory.feeAmountTickSpacing(100)).to.eq(5)
     })
     it('emits an event', async () => {
       await expect(factory.enableFeeAmount(100, 5)).to.emit(factory, 'FeeAmountEnabled').withArgs(100, 5)
     })
     it('enables pool creation', async () => {
-      await factory.enableFeeAmount(250, 15)
+      await (await factory.enableFeeAmount(250, 15)).wait()
       await createAndCheckPool([TEST_ADDRESSES[0], TEST_ADDRESSES[1]], 250, 15)
     })
   })

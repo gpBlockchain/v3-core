@@ -49,7 +49,7 @@ function applySqrtRatioBipsHundredthsDelta(sqrtRatio: BigNumber, bipsHundredths:
 }
 
 describe('UniswapV3Pool arbitrage tests', function (){
-  this.timeout(100000)
+  this.timeout(100000000)
   let wallet: Wallet, arbitrageur: Wallet
 
   let loadFixture: ReturnType<typeof createFixtureLoader>
@@ -81,7 +81,7 @@ describe('UniswapV3Pool arbitrage tests', function (){
             const pool = await fix.createPool(feeAmount, tickSpacing)
 
             await fix.token0.transfer(arbitrageur.address, BigNumber.from(2).pow(254))
-            await fix.token1.transfer(arbitrageur.address, BigNumber.from(2).pow(254))
+            await (await fix.token1.transfer(arbitrageur.address, BigNumber.from(2).pow(254))).wait()
 
             const {
               swapExact0For1,
@@ -105,9 +105,9 @@ describe('UniswapV3Pool arbitrage tests', function (){
             await fix.token0.approve(tester.address, MaxUint256)
             await fix.token1.approve(tester.address, MaxUint256)
 
-            await pool.initialize(startingPrice)
-            if (feeProtocol != 0) await pool.setFeeProtocol(feeProtocol, feeProtocol)
-            await mint(wallet.address, minTick, maxTick, passiveLiquidity)
+            await (await pool.initialize(startingPrice)).wait()
+            if (feeProtocol != 0) await (await pool.setFeeProtocol(feeProtocol, feeProtocol)).wait()
+            await (await mint(wallet.address, minTick, maxTick, passiveLiquidity)).wait()
 
             expect((await pool.slot0()).tick).to.eq(startingTick)
             expect((await pool.slot0()).sqrtPriceX96).to.eq(startingPrice)

@@ -13,6 +13,7 @@ describe('BitMath', function ()  {
     return (await factory.deploy()) as BitMathTest
   }
   before('deploy BitMathTest', async () => {
+
     bitMath = await fixture()
   })
 

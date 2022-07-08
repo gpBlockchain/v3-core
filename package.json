@@ -27,7 +27,10 @@
   "engines": {
     "node": ">=10"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mochawesome-merge": "^4.2.1",
+    "npm-run-all": "^4.1.5"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",
@@ -39,10 +42,12 @@
     "decimal.js": "^10.2.1",
     "ethereum-waffle": "^3.0.2",
     "ethers": "^5.0.8",
-    "hardhat": "^2.2.0",
+    "hardhat": "^2.9.1",
     "hardhat-typechain": "^0.3.5",
     "mocha": "^6.2.2",
     "mocha-chai-jest-snapshot": "^1.1.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-report-generator": "^6.2.0",
     "prettier": "^2.0.5",
     "prettier-plugin-solidity": "^1.0.0-alpha.59",
     "solhint": "^3.2.1",
@@ -50,12 +55,29 @@
     "ts-generator": "^0.1.1",
     "ts-node": "^8.5.4",
     "typechain": "^4.0.0",
-    "typescript": "^3.7.3",
-    "mochawesome": "^7.1.3",
-    "mochawesome-report-generator": "^6.2.0"
+    "typescript": "^3.7.3"
   },
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test --network localEth"
+    "test": "hardhat test --network localEth --grep BitMath",
+    "test:prepare": "hardhat test --config ./hardhat.init.config.ts --network testRpc --grep \"initAccount\"",
+    "test:BitMath": "hardhat test --config ./hardhat.config.BitMath.ts --network testRpc --grep \"BitMath\"",
+    "test:fullMath": "hardhat test --config ./hardhat.config.FullMath.ts --network testRpc --grep \"FullMath\"",
+    "test:LiquidityMath": "hardhat test --config ./hardhat.config.LiquidityMath.ts --network testRpc --grep \"LiquidityMath\"",
+    "test:NoDelegateCall":"hardhat test --config ./hardhat.config.NoDelegateCall.ts --network testRpc --grep \"NoDelegateCall\"",
+    "test:Oracle": "hardhat test --config ./hardhat.config.Oracle.ts --network testRpc --grep \"Oracle\"",
+    "test:SqrtPriceMath": "hardhat test --config ./hardhat.config.SqrtPriceMath.ts --network testRpc --grep \"SqrtPriceMath\"",
+    "test:SwapMath": "hardhat test --config ./hardhat.config.SwapMath.ts --network testRpc --grep \"SwapMath\"",
+    "test:Tick": "hardhat test --config ./hardhat.config.Tick.ts --network testRpc --grep \"Tick\"",
+    "test:UniswapV3Factory": "hardhat test --config ./hardhat.config.UniswapV3Factory.ts --network testRpc --grep \"UniswapV3Factory\"",
+    "test:UniswapV3PoolArbitrage": "hardhat test --config ./hardhat.config.UniswapV3Pool.arbitrage.ts --network testRpc --grep \"UniswapV3Pool arbitrage tests\"",
+    "test:UniswapV3PoolGas": "hardhat test --config ./hardhat.config.UniswapV3Pool.gas.ts --network testRpc --grep \"UniswapV3Pool gas tests\"",
+    "test:UniswapV3Pool": "hardhat test --config ./hardhat.config.UniswapV3Pool.ts --network testRpc --grep \"UniswapV3Pool 1\"",
+    "test:UniswapV3PoolSwaps": "hardhat test --config ./hardhat.config.UniswapV3Pool.swaps.ts --network testRpc --grep \"UniswapV3Pool swap tests\"",
+    "test:UniswapV3Router": "hardhat test --config ./hardhat.config.UniswapV3Router.ts --network testRpc --grep \"UniswapV3Pool Router\"",
+    "test:runAll": "npm-run-all -p test:BitMath test:fullMath test:LiquidityMath test:NoDelegateCall test:Oracle test:SqrtPriceMath test:SwapMath test:Tick test:UniswapV3Factory test:UniswapV3PoolArbitrage test:UniswapV3PoolGas test:UniswapV3Pool test:UniswapV3PoolSwaps test:UniswapV3Router",
+    "test:mergyReport": "mochawesome-merge mochawesome-report/*report.json > mochawesome-report/merge-report.json",
+    "test:genHtml": "npx mochawesome-report-generator mochawesome-report/merge-report.json",
+    "test:mergy": "npm-run-all -"
   }
 }

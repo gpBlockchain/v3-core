@@ -2,6 +2,14 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-etherscan'
+import {extendEnvironment, task} from "hardhat/config";
+import {transfer} from "./test/shared/transfer";
+import {ethers} from "ethers";
+import {HardhatRuntimeEnvironment} from "hardhat/types";
+import {lazyObject} from "hardhat/plugins";
+require("dotenv").config();
+const mnemonic_str = process.env.MNEMONIC_STR
+const test_rpc_url = process.env.TEST_RPC
 
 export default {
   networks: {
@@ -43,11 +51,23 @@ export default {
     },
     localEth:{
       url:`http://localhost:8545`,
+      // gas:3000000,
       accounts: {
-        mnemonic: "test test test test test test test test test test test junk",
+        mnemonic: mnemonic_str,
+        path: "m/44'/60'/0'/0",
+        initialIndex: 1,
+        count: 1,
+        passphrase: "",
+      },
+    },
+    testRpc:{
+      url:test_rpc_url,
+      // gas:3000000,
+      accounts: {
+        mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",
         initialIndex: 0,
-        count: 20,
+        count: 400,
         passphrase: "",
       },
     }
@@ -72,7 +92,7 @@ export default {
       },
     },
   },
-  defaultNetwork:"localEth",
+  defaultNetwork:"testRpc",
   mocha: {
     /** Reporter name or constructor. */
     reporter: "mochawesome",

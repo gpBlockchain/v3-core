@@ -242,7 +242,7 @@ describe('Tick', function (){
   // this is skipped because the presence of the method causes slither to fail
   describe('#clear', async () => {
     it('deletes all the data in the tick', async () => {
-      await tickTest.setTick(2, {
+      let tx = await tickTest.setTick(2, {
         feeGrowthOutside0X128: 1,
         feeGrowthOutside1X128: 2,
         liquidityGross: 3,
@@ -252,6 +252,7 @@ describe('Tick', function (){
         secondsOutside: 7,
         initialized: true,
       })
+      await tx.wait()
       await (await tickTest.clear(2)).wait()
       const {
         feeGrowthOutside0X128,

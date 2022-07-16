@@ -58,7 +58,7 @@ export default {
         },
         testRpc:{
             url:test_rpc_url,
-            // gas:3000000,
+            gas:10000000,
             accounts: {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",
@@ -94,11 +94,11 @@ export default {
         reporter: "mochawesome",
         timeout: 5000000,
         reporterOptions: {
-            reportFilename: "[status]_BitMath-report",
+            reportFilename: "[status]_BitMath-1-report",
         }
         // /** Reporter settings object. */
         // reporterOptions: {
-        //     output: "test-results-1.json"
+        //     output: "test-results-1.json"    "test:BitMath": "hardhat test --config ./hardhat.config.BitMath.ts --network testRpc --grep \"BitMath\"",
         // },
         // reporterOptions: {
         //     reportFilename: "[status]_[datetime]-[name]-report",

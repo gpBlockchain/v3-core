@@ -52,7 +52,7 @@ export default {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",
                 initialIndex: 0,
-                count: 100,
+                count: 60,
                 passphrase: "",
             },
         },
@@ -63,7 +63,7 @@ export default {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",
                 initialIndex: 0,
-                count: 100,
+                count: 70,
                 passphrase: "",
             },
         }

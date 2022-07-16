@@ -60,14 +60,25 @@ export default {
         passphrase: "",
       },
     },
+    axon_remote: {
+      url: 'http://192.168.10.64:8000',
+      accounts: {
+        mnemonic: "test test test test test test test test test test test junk",
+        path: "m/44'/60'/0'/0",
+        initialIndex: 0,
+        count: 20,
+        passphrase: "",
+      },
+    },
+
     testRpc:{
       url:test_rpc_url,
-      // gas:3000000,
+      gas:10000000,
       accounts: {
         mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",
         initialIndex: 0,
-        count: 400,
+        count: 60,
         passphrase: "",
       },
     }

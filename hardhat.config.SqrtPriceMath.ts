@@ -59,6 +59,8 @@ export default {
         testRpc:{
             url:test_rpc_url,
             // gas:3000000,
+            gas:10000000,
+
             accounts: {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",

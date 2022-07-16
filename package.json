@@ -64,7 +64,7 @@
     "test:BitMath": "hardhat test --config ./hardhat.config.BitMath.ts --network testRpc --grep \"BitMath\"",
     "test:fullMath": "hardhat test --config ./hardhat.config.FullMath.ts --network testRpc --grep \"FullMath\"",
     "test:LiquidityMath": "hardhat test --config ./hardhat.config.LiquidityMath.ts --network testRpc --grep \"LiquidityMath\"",
-    "test:NoDelegateCall":"hardhat test --config ./hardhat.config.NoDelegateCall.ts --network testRpc --grep \"NoDelegateCall\"",
+    "test:NoDelegateCall": "hardhat test --config ./hardhat.config.NoDelegateCall.ts --network testRpc --grep \"NoDelegateCall\"",
     "test:Oracle": "hardhat test --config ./hardhat.config.Oracle.ts --network testRpc --grep \"Oracle\"",
     "test:SqrtPriceMath": "hardhat test --config ./hardhat.config.SqrtPriceMath.ts --network testRpc --grep \"SqrtPriceMath\"",
     "test:SwapMath": "hardhat test --config ./hardhat.config.SwapMath.ts --network testRpc --grep \"SwapMath\"",
@@ -75,9 +75,9 @@
     "test:UniswapV3Pool": "hardhat test --config ./hardhat.config.UniswapV3Pool.ts --network testRpc --grep \"UniswapV3Pool 1\"",
     "test:UniswapV3PoolSwaps": "hardhat test --config ./hardhat.config.UniswapV3Pool.swaps.ts --network testRpc --grep \"UniswapV3Pool swap tests\"",
     "test:UniswapV3Router": "hardhat test --config ./hardhat.config.UniswapV3Router.ts --network testRpc --grep \"UniswapV3Pool Router\"",
-    "test:runAll": "npm-run-all -p test:BitMath test:fullMath test:LiquidityMath test:NoDelegateCall test:Oracle test:SqrtPriceMath test:SwapMath test:Tick test:UniswapV3Factory test:UniswapV3PoolArbitrage test:UniswapV3PoolGas test:UniswapV3Pool test:UniswapV3PoolSwaps test:UniswapV3Router",
-    "test:mergyReport": "mochawesome-merge mochawesome-report/*report.json > mochawesome-report/merge-report.json",
-    "test:genHtml": "npx mochawesome-report-generator mochawesome-report/merge-report.json",
+    "test:runAll": "npm-run-all -p -c test:BitMath test:fullMath test:LiquidityMath test:NoDelegateCall test:Oracle test:SqrtPriceMath test:SwapMath test:Tick test:UniswapV3Factory test:UniswapV3PoolArbitrage test:UniswapV3PoolGas test:UniswapV3Pool test:UniswapV3PoolSwaps test:UniswapV3Router",
+    "test:mergyReport": "mochawesome-merge mochawesome-report-eth/*report.json > mochawesome-report-eth/merge-report.json",
+    "test:genHtml": "npx mochawesome-report-generator mochawesome-report-eth/merge-report.json",
     "test:mergy": "npm-run-all -"
   }
 }

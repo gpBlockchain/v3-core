@@ -20,7 +20,7 @@ describe('Transfer', function () {
             // @ts-ignore
             let balance =  signers[0].provider.getBalance(signers[i].address)
             waitList.push({address:signers[i].address,balance:balance})
-            await sleep(20)
+            await sleep(50)
         }
         for (let i = 0; i < waitList.length; i++) {
             console.log('idx:',i,' address:', waitList[i].address,' balance:',(await waitList[i].balance).toString())

@@ -47,7 +47,6 @@ jobs:
         id: runtest
         run: |
           yarn test:prepare
-          yarn test:runAll
       - name: check axon status
         if: success() || failure()
         run: |

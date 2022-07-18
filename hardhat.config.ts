@@ -7,6 +7,7 @@ const mnemonic_str = process.env.MNEMONIC_STR
 const test_rpc_url = process.env.TEST_RPC
 
 export default {
+  defaultNetwork:"localEth",
   networks: {
     hardhat: {
       allowUnlimitedContractSize: false,
@@ -50,8 +51,8 @@ export default {
       accounts: {
         mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",
-        initialIndex: 0,
-        count: 10,
+        initialIndex: 8,
+        count: 5,
         passphrase: "",
       },
     },
@@ -98,7 +99,6 @@ export default {
       },
     },
   },
-  defaultNetwork:"localEth",
   mocha: {
     /** Reporter name or constructor. */
     reporter: "mochawesome",

@@ -70,7 +70,6 @@ describe('UniswapV3Factory', function (){
 
     const create2Address = getCreate2Address(factory.address, tokens, feeAmount, poolBytecode)
     const create = factory.createPool(tokens[0], tokens[1], feeAmount)
-    // console.log('create:',await (await create).wait())
     await (await create).wait()
     await expect(create)
       .to.emit(factory, 'PoolCreated')

@@ -59,13 +59,13 @@ export default {
         testRpc:{
             url:test_rpc_url,
             // gas:3000000,
-            // gas:10000000,
+            gas:10000000,
 
             accounts: {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",
-                initialIndex: 8,
-                count: 10,
+                initialIndex: 15,
+                count: 2,
                 passphrase: "",
             },
         }
@@ -96,7 +96,7 @@ export default {
         reporter: "mochawesome",
         timeout: 5000000,
         reporterOptions: {
-            reportFilename: "[status]_UniswapV3Factory-report",
+            reportFilename: "[status]_UniswapV3Pool.arbitrage-report",
         }
         // /** Reporter settings object. */
         // reporterOptions: {

@@ -1,0 +1,20 @@
+test:BitMath 31s
+test:fullMath 44s
+test:LiquidityMath 1m45
+test:NoDelegateCall 1m20
+test:BitMath test:fullMath test:LiquidityMath test:NoDelegateCall
+
+test:SqrtPriceMath 31s
+test:SwapMath  44s
+test:UniswapV3Factory 4m
+test:UniswapV3Router 1m
+test:SqrtPriceMath test:SwapMath test:UniswapV3Factory test:UniswapV3Router
+
+test:Tick  26m
+test:Oracle  22m
+test:UniswapV3PoolArbitrage 55m
+test:Tick test:Oracle test:UniswapV3PoolArbitrage-1 test:UniswapV3PoolArbitrage-2
+
+UniswapV3PoolGas  3h14
+test:UniswapV3Pool 2h16m
+ test:UniswapV3PoolSwaps UniswapV3Pool.swaps.spec.ts 5h56m

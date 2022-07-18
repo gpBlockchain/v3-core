@@ -251,8 +251,8 @@ describe('UniswapV3Pool arbitrage tests', function () {
                                 arbBalance0 = arbBalance0.sub(frontrunDelta0)
                                 arbBalance1 = arbBalance1.sub(frontrunDelta1)
                                 zeroForOne
-                                    ? await swapToLowerPrice(priceSwapStart, arbitrageur.address)
-                                    : await swapToHigherPrice(priceSwapStart, arbitrageur.address)
+                                    ? await (await swapToLowerPrice(priceSwapStart, arbitrageur.address)).wait()
+                                    : await (await swapToHigherPrice(priceSwapStart, arbitrageur.address)).wait()
 
                                 const profitToken1AfterFrontRun = valueToken1(arbBalance0, arbBalance1)
 
@@ -261,7 +261,7 @@ describe('UniswapV3Pool arbitrage tests', function () {
 
                                 // deposit max liquidity at the tick
                                 const mintReceipt = await (
-                                    await mint(wallet.address, tickLower, tickUpper, getMaxLiquidityPerTick(tickSpacing))
+                                     (await mint(wallet.address, tickLower, tickUpper, getMaxLiquidityPerTick(tickSpacing)))
                                 ).wait()
                                 // sub the mint costs
                                 const {amount0: amount0Mint, amount1: amount1Mint} = pool.interface.decodeEventLog(
@@ -274,8 +274,8 @@ describe('UniswapV3Pool arbitrage tests', function () {
                                 // execute the user's swap
                                 const {executionPrice: executionPriceAfterFrontrun} = await simulateSwap(zeroForOne, inputAmount)
                                 zeroForOne
-                                    ? await swapExact0For1(inputAmount, wallet.address)
-                                    : await swapExact1For0(inputAmount, wallet.address)
+                                    ? await (await swapExact0For1(inputAmount, wallet.address)).wait()
+                                    : await (await swapExact1For0(inputAmount, wallet.address)).wait()
 
                                 // burn the arb's liquidity
                                 const {amount0: amount0Burn, amount1: amount1Burn} = await pool.callStatic.burn(
@@ -310,7 +310,7 @@ describe('UniswapV3Pool arbitrage tests', function () {
                                     amount1Delta: backrunDelta1,
                                     executionPrice: backrunExecutionPrice,
                                 } = await simulateSwap(!zeroForOne, MaxUint256.div(2), priceToSwapTo)
-                                await swapToHigherPrice(priceToSwapTo, wallet.address)
+                                await (await swapToHigherPrice(priceToSwapTo, wallet.address)).wait()
                                 arbBalance0 = arbBalance0.sub(backrunDelta0)
                                 arbBalance1 = arbBalance1.sub(backrunDelta1)
 
@@ -354,8 +354,8 @@ describe('UniswapV3Pool arbitrage tests', function () {
                                 let arbBalance1 = BigNumber.from(0)
 
                                 zeroForOne
-                                    ? await swapExact0For1(inputAmount, wallet.address)
-                                    : await swapExact1For0(inputAmount, wallet.address)
+                                    ? await (await swapExact0For1(inputAmount, wallet.address)).wait()
+                                    : await (await swapExact1For0(inputAmount, wallet.address)).wait()
 
                                 // swap to the marginal price = true price
                                 const priceToSwapTo = zeroForOne
@@ -367,8 +367,8 @@ describe('UniswapV3Pool arbitrage tests', function () {
                                     executionPrice: backrunExecutionPrice,
                                 } = await simulateSwap(!zeroForOne, MaxUint256.div(2), priceToSwapTo)
                                 zeroForOne
-                                    ? await swapToHigherPrice(priceToSwapTo, wallet.address)
-                                    : await swapToLowerPrice(priceToSwapTo, wallet.address)
+                                    ? await (await swapToHigherPrice(priceToSwapTo, wallet.address)).wait()
+                                    : await (await swapToLowerPrice(priceToSwapTo, wallet.address)).wait()
                                 arbBalance0 = arbBalance0.sub(backrunDelta0)
                                 arbBalance1 = arbBalance1.sub(backrunDelta1)
 

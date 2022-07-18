@@ -46,6 +46,11 @@ jobs:
         if: success() || failure()
         run: |
           curl http://localhost:8000 -X POST -H "Content-Type: application/json" -d '{"jsonrpc":"2.0","method":"web3_clientVersion","params": [],"id":1}'
+
+      - name: check axon log
+        if: success() || failure()
+        run: |
+          tail -n 100 axon/chain.log
       - name: Publish reports
         if: always()
         uses: actions/upload-artifact@v2

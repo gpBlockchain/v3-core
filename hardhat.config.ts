@@ -50,8 +50,8 @@ export default {
       accounts: {
         mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",
-        initialIndex: 1,
-        count: 1,
+        initialIndex: 0,
+        count: 10,
         passphrase: "",
       },
     },
@@ -98,7 +98,7 @@ export default {
       },
     },
   },
-  defaultNetwork:"testRpc",
+  defaultNetwork:"localEth",
   mocha: {
     /** Reporter name or constructor. */
     reporter: "mochawesome",

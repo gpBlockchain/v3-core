@@ -1,7 +1,6 @@
 import {ethers} from "hardhat";
 import {Provider} from "@ethersproject/abstract-provider";
-import {BigNumber, Wallet} from "ethers";
-import {BigNumberish} from "@ethersproject/bignumber/src.ts/bignumber";
+import {BigNumber, BigNumberish, Wallet} from "ethers";
 require("dotenv").config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const TRANSFER_ETHER = process.env.TRANSFER_ETHER

@@ -85,3 +85,49 @@ exports[`Oracle #observe initialized with 5 observations with starting time of 4
 exports[`Oracle #observe initialized with 5 observations with starting time of 4294967291 gas middle 1`] = `13986`;
 
 exports[`Oracle #observe initialized with 5 observations with starting time of 4294967291 gas oldest 1`] = `15538`;
+
+exports[`Oracle #observe query advance 6 initialized with 5 observations with starting time of 5 advanceTime 6 fetch many values 1`] = `
+Object {
+  "secondsPerLiquidityCumulativeX128s": Array [
+    "544451787073501541541399371890829138329",
+    "799663562264205389138930327464655296921",
+    "1045423049484883168306923099498710116305",
+    "1423514568285925905488450441089563684590",
+    "2152691068830794041481396028443352709138",
+    "2347138135642758877746181518404363115684",
+    "2395749902345750086812377890894615717321",
+  ],
+  "tickCumulatives": Array [
+    -13,
+    -31,
+    -43,
+    -37,
+    -15,
+    9,
+    15,
+  ],
+}
+`;
+
+exports[`Oracle #observe query advance 6 initialized with 5 observations with starting time of 4294967291 advanceTime 6 fetch many values 1`] = `
+Object {
+  "secondsPerLiquidityCumulativeX128s": Array [
+    "544451787073501541541399371890829138329",
+    "799663562264205389138930327464655296921",
+    "1045423049484883168306923099498710116305",
+    "1423514568285925905488450441089563684590",
+    "2152691068830794041481396028443352709138",
+    "2347138135642758877746181518404363115684",
+    "2395749902345750086812377890894615717321",
+  ],
+  "tickCumulatives": Array [
+    -13,
+    -31,
+    -43,
+    -37,
+    -15,
+    9,
+    15,
+  ],
+}
+`;

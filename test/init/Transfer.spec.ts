@@ -1,5 +1,5 @@
 import {ethers} from "hardhat";
-import {transfer} from "../shared/transfer";
+import {transfer} from "../shared/transfer.js";
 require("dotenv").config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const TRANSFER_ETHER = process.env.TRANSFER_ETHER

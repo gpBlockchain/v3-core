@@ -1,6 +1,7 @@
 import {ethers} from "hardhat";
 import {Provider} from "@ethersproject/abstract-provider";
 import {BigNumber, Wallet} from "ethers";
+import {BigNumberish} from "@ethersproject/bignumber/src.ts/bignumber";
 require("dotenv").config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const TRANSFER_ETHER = process.env.TRANSFER_ETHER
@@ -56,7 +57,7 @@ async function sleep(ms:number) {
 
 
 
-export async function transfer(privateKey: string,provider: Provider, to: string,value:string|BigNumber) {
+export async function transfer(privateKey: string,provider: Provider, to: string,value:BigNumberish) {
     if((await provider.getBalance(to)).sub(value).gte(BigNumber.from('0'))){
         return
     }

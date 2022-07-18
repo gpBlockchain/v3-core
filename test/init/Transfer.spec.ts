@@ -1,5 +1,4 @@
 import {ethers} from "hardhat";
-import {Provider} from "@ethersproject/abstract-provider";
 import {BigNumber, BigNumberish, Wallet} from "ethers";
 require("dotenv").config();
 const PRIVATE_KEY = process.env.PRIVATE_KEY
@@ -37,8 +36,8 @@ async function initWithParam(private_key: string, transfer_value: string) {
     let signer = await ethers.getSigners()
     let waitList = []
     for (let i = 0; i < signer.length; i++) {
-        // @ts-ignore
-        let aa = transfer(private_key, signer[0].provider, signer[i].address, ethers.utils.parseEther(transfer_value))
+
+        let aa = transfer(private_key, i, signer[i].address, ethers.utils.parseEther(transfer_value))
         waitList.push(aa)
         await sleep(100)
     }
@@ -56,7 +55,13 @@ async function sleep(ms:number) {
 
 
 
-export async function transfer(privateKey: string,provider: Provider, to: string,value:BigNumberish) {
+export async function transfer(privateKey: string,idx:number, to: string,value:BigNumberish) {
+    let provider = (await ethers.getSigners())[idx].provider
+    if(provider == undefined){
+        console.log('provider is undefined')
+        return
+    }
+
     if((await provider.getBalance(to)).sub(value as BigNumberish).gte(BigNumber.from('0') as BigNumberish)){
         return
     }

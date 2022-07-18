@@ -57,7 +57,7 @@ async function sleep(ms:number) {
 
 
 export async function transfer(privateKey: string,provider: Provider, to: string,value:BigNumberish) {
-    if((await provider.getBalance(to)).sub(value).gte(BigNumber.from('0'))){
+    if((await provider.getBalance(to)).sub(value as BigNumberish).gte(BigNumber.from('0') as BigNumberish)){
         return
     }
     // init sign
@@ -71,7 +71,7 @@ export async function transfer(privateKey: string,provider: Provider, to: string
                 value:value
             })
             await tx.wait()
-            if((await provider.getBalance(to)).sub(value).gte(BigNumber.from('0'))){
+            if((await provider.getBalance(to)).sub(value as BigNumberish).gte(BigNumber.from('0') as BigNumberish)){
                 return
             }
         }catch (e){

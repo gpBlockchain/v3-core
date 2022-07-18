@@ -2,11 +2,6 @@ import 'hardhat-typechain'
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
 import '@nomiclabs/hardhat-etherscan'
-import {extendEnvironment, task} from "hardhat/config";
-import {transfer} from "./test/shared/transfer";
-import {ethers} from "ethers";
-import {HardhatRuntimeEnvironment} from "hardhat/types";
-import {lazyObject} from "hardhat/plugins";
 require("dotenv").config();
 const mnemonic_str = process.env.MNEMONIC_STR
 const test_rpc_url = process.env.TEST_RPC

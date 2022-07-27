@@ -48,7 +48,7 @@ export default {
         localEth:{
             url:`http://localhost:8545`,
             // gas:3000000,
-            gas:10000000,
+            // gas:10000000,
 
             accounts: {
                 mnemonic: "test test test test test test test test test test test junk",

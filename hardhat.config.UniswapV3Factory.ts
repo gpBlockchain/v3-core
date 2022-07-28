@@ -95,9 +95,11 @@ export default {
         /** Reporter name or constructor. */
         reporter: "mochawesome",
         timeout: 5000000,
+        retries: 2,
         reporterOptions: {
             reportFilename: "[status]_UniswapV3Factory-report",
         }
+
         // /** Reporter settings object. */
         // reporterOptions: {
         //     output: "test-results-1.json"

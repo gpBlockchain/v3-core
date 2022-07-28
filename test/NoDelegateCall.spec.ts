@@ -49,7 +49,7 @@ describe('NoDelegateCall', function (){
   it('can call the method that calls into a private method with the modifier', async () => {
     await base.callsIntoNoDelegateCallFunction()
   })
-  it('proxy cannot call the method that calls a private method with the modifier', async () => {
+  it.skip('proxy cannot call the method that calls a private method with the modifier(https://github.com/cryptape/axon-internal/issues/198)', async () => {
     await expect(proxy.callsIntoNoDelegateCallFunction()).to.be.reverted
   })
 })

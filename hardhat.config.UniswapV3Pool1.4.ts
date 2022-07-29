@@ -60,6 +60,7 @@ export default {
             url:test_rpc_url,
             // gas:3000000,
             // gas:10000000,
+            gasMultiplier:2,
 
             accounts: {
                 mnemonic: mnemonic_str,
@@ -96,7 +97,7 @@ export default {
         reporter: "mochawesome",
         timeout: 5000000,
         reporterOptions: {
-            reportFilename: "[status]_UniswapV3Pool.arbitrage-report",
+            reportFilename: "[status]_[datetime]-UniswapV3Pool.1.4-report",
         }
         // /** Reporter settings object. */
         // reporterOptions: {

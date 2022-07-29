@@ -60,6 +60,7 @@ export default {
             url:test_rpc_url,
             // gas:3000000,
             // gas:10000000,
+            gasMultiplier:2,
 
             accounts: {
                 mnemonic: mnemonic_str,

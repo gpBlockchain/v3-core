@@ -7,10 +7,15 @@ const mnemonic_str = process.env.MNEMONIC_STR
 const test_rpc_url = process.env.TEST_RPC
 
 export default {
-  defaultNetwork:"localEth",
+  defaultNetwork:"testRpc",
   networks: {
     hardhat: {
+      loggingEnabled: true,
       allowUnlimitedContractSize: false,
+      mining: {
+        auto: true,
+        interval: 3000
+      }
     },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
@@ -70,6 +75,7 @@ export default {
     testRpc:{
       url:test_rpc_url,
       // gas:10000000,
+      gasMultiplier:2,
       accounts: {
         mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",

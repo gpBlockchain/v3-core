@@ -58,6 +58,7 @@ export default {
         },
         testRpc:{
             url:test_rpc_url,
+            gasMultiplier:2,
             // gas:3000000,
             // gas:10000000,
 

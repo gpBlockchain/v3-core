@@ -81,7 +81,8 @@ export const poolFixture: Fixture<PoolFixture> = async function (): Promise<Pool
         firstToken.address,
         secondToken.address,
         fee,
-        tickSpacing
+        tickSpacing,
+          {gasLimit:10000000}
       )
 
       const receipt = await tx.wait()

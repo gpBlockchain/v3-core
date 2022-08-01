@@ -51,7 +51,7 @@ describe('UniswapV3Factory', function (){
   })
 
   it('pool bytecode size', async () => {
-    await (await factory.createPool(TEST_ADDRESSES[0], TEST_ADDRESSES[1], FeeAmount.MEDIUM)).wait()
+    await (await factory.createPool(TEST_ADDRESSES[0], TEST_ADDRESSES[1], FeeAmount.MEDIUM,{gasLimit:10000000})).wait()
     const poolAddress = getCreate2Address(factory.address, TEST_ADDRESSES, FeeAmount.MEDIUM, poolBytecode)
     expect(((await ethers.provider.getCode(poolAddress)).length - 2) / 2).to.matchSnapshot()
   })
@@ -69,7 +69,7 @@ describe('UniswapV3Factory', function (){
   ) {
 
     const create2Address = getCreate2Address(factory.address, tokens, feeAmount, poolBytecode)
-    const create = factory.createPool(tokens[0], tokens[1], feeAmount)
+    const create = factory.createPool(tokens[0], tokens[1], feeAmount,{gasLimit:10000000})
     await (await create).wait()
     await expect(create)
       .to.emit(factory, 'PoolCreated')

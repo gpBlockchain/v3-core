@@ -191,8 +191,7 @@ describe('UniswapV3Pool arbitrage tests -1', function () {
                                     .add(arbBalance1)
                             }
 
-                            it.skip('not sandwiched', async () => {
-                                console.log('init')
+                            it('not sandwiched', async () => {
                                 const {
                                     executionPrice,
                                     amount1Delta,
@@ -341,7 +340,7 @@ describe('UniswapV3Pool arbitrage tests -1', function () {
                                 }).to.matchSnapshot()
                             })
 
-                            it.skip('backrun to true price after swap only', async () => {
+                            it('backrun to true price after swap only', async () => {
                                 let arbBalance0 = BigNumber.from(0)
                                 let arbBalance1 = BigNumber.from(0)
 

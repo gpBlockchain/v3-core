@@ -96,7 +96,7 @@ export default {
         reporter: "mochawesome",
         timeout: 5000000,
         reporterOptions: {
-            reportFilename: "[status]_UniswapV3Pool.arbitrage-report",
+            reportFilename: "[status]_UniswapV3Pool.arbitrage-2-report",
         }
         // /** Reporter settings object. */
         // reporterOptions: {

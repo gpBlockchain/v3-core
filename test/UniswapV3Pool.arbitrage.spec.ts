@@ -621,7 +621,7 @@ describe('UniswapV3Pool arbitrage tests -2', function () {
                                     tickUpper,
                                     getMaxLiquidityPerTick(tickSpacing)
                                 )
-                                await (await pool.burn(tickLower, tickUpper, getMaxLiquidityPerTick(tickSpacing))).wait()
+                                await (await pool.burn(tickLower, tickUpper, getMaxLiquidityPerTick(tickSpacing),{gasLimit:10000000})).wait()
                                 arbBalance0 = arbBalance0.add(amount0Burn)
                                 arbBalance1 = arbBalance1.add(amount1Burn)
 

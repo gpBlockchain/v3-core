@@ -52,7 +52,7 @@ export default {
     },
     localEth:{
       url:`http://localhost:8545`,
-      // gas:3000000,
+      gas:3000000,
       accounts: {
         mnemonic: mnemonic_str,
         path: "m/44'/60'/0'/0",

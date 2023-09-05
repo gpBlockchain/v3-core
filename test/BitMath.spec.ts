@@ -10,7 +10,7 @@ describe('BitMath', function ()  {
   let bitMath: BitMathTest
   const fixture = async () => {
     const factory = await ethers.getContractFactory('BitMathTest')
-    return (await factory.deploy({ gasLimit: 880000 })) as BitMathTest
+    return (await factory.deploy()) as BitMathTest
   }
   before('deploy BitMathTest', async () => {
 

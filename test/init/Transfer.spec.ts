@@ -82,7 +82,8 @@ export async function transfer(wt: Wallet, idx: number, to: string, value: BigNu
         try {
             let tx = await wt.sendTransaction({
                 to:to,
-                value:value
+                value:value,
+                nonce:currentNonce
             })
             await tx.wait()
             break;

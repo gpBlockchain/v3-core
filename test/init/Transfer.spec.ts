@@ -35,10 +35,26 @@ describe('Transfer', function () {
 async function initWithParam(private_key: string, transfer_value: string) {
     let signer = await ethers.getSigners()
     let waitList = []
-    for (let i = 0; i < signer.length; i++) {
+    let provider = (await ethers.getSigners())[0].provider
+    if (!provider) {
+        console.log('Provider is undefined')
+        return
+    }
 
-        let aa = transfer(private_key, i, signer[i].address, ethers.utils.parseEther(transfer_value))
-        waitList.push(aa)
+    let wt = new Wallet(private_key)
+    wt = wt.connect(provider)
+    let baseNonce = await provider.getTransactionCount(wt.address)
+    let j = 0
+    const transferValue = ethers.utils.parseEther(transfer_value)
+
+    for (let i = 0; i < signer.length; i++) {
+        let currentBalance = await provider.getBalance(signer[i].address)
+        if(currentBalance.sub(transferValue).lt(BigNumber.from('0'))) {
+            let currentNonce = baseNonce + j
+            let aa = transfer(wt, i, signer[i].address, transferValue, currentNonce)
+            waitList.push(aa)
+            j++
+        }
         await sleep(100)
     }
     for (let i = 0; i < waitList.length; i++) {
@@ -55,34 +71,24 @@ async function sleep(ms:number) {
 
 
 
-export async function transfer(privateKey: string,idx:number, to: string,value:BigNumberish) {
+export async function transfer(wt: Wallet, idx: number, to: string, value: BigNumberish, currentNonce: number) {
     let provider = (await ethers.getSigners())[idx].provider
     if(provider == undefined){
         console.log('provider is undefined')
         return
     }
 
-    if((await provider.getBalance(to)).sub(value as BigNumberish).gte(BigNumber.from('0') as BigNumberish)){
-        return
-    }
-    // init sign
-    let wt = new Wallet(privateKey)
-    wt = await wt.connect(provider)
-
     while (true){
         try {
             let tx = await wt.sendTransaction({
                 to:to,
-                value:value
+                value:value,
+                nonce:currentNonce
             })
             await tx.wait()
-            if((await provider.getBalance(to)).sub(value as BigNumberish).gte(BigNumber.from('0') as BigNumberish)){
-                return
-            }
+            break;
         }catch (e){
             console.log('e:',e.toString())
         }
-
     }
-
 }

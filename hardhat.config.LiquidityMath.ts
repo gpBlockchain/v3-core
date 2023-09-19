@@ -64,7 +64,7 @@ export default {
             accounts: {
                 mnemonic: mnemonic_str,
                 path: "m/44'/60'/0'/0",
-                initialIndex: 2,
+                initialIndex: 3,
                 count: 1,
                 passphrase: "",
             },

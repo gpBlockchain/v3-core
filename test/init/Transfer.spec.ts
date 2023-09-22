@@ -78,7 +78,10 @@ export async function transfer(wt: Wallet, idx: number, to: string, value: BigNu
         return
     }
 
-    while (true){
+    const MAX_RETRIES = 5;
+    let attempt = 0;
+
+    while (attempt < MAX_RETRIES) {
         try {
             let tx = await wt.sendTransaction({
                 to:to,
@@ -91,4 +94,5 @@ export async function transfer(wt: Wallet, idx: number, to: string, value: BigNu
             console.log('e:',e.toString())
         }
     }
+    throw new Error('Failed to transfer after ' + MAX_RETRIES + ' attempts.');
 }

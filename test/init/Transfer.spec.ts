@@ -72,27 +72,28 @@ async function sleep(ms:number) {
 
 
 export async function transfer(wt: Wallet, idx: number, to: string, value: BigNumberish, currentNonce: number) {
-    let provider = (await ethers.getSigners())[idx].provider
-    if(provider == undefined){
-        console.log('provider is undefined')
-        return
+    let provider = (await ethers.getSigners())[idx].provider;
+    if (provider == undefined) {
+        console.log('provider is undefined');
+        return;
     }
 
-    const MAX_RETRIES = 5;
+    const MAX_RETRIES = 50;
     let attempt = 0;
 
     while (attempt < MAX_RETRIES) {
         try {
             let tx = await wt.sendTransaction({
-                to:to,
-                value:value,
-                nonce:currentNonce
-            })
-            await tx.wait()
-            break;
-        }catch (e){
-            console.log('e:',e.toString())
+                to: to,
+                value: value,
+                nonce: currentNonce
+            });
+            await tx.wait();
+            return;
+        } catch (e) {
+            console.log('e:', e.toString());
         }
+        attempt++;
     }
     throw new Error('Failed to transfer after ' + MAX_RETRIES + ' attempts.');
 }
